@@ -45,10 +45,14 @@ ActiveRecord::Schema.define(version: 20160621093345) do
     t.string   "content"
     t.string   "description"
     t.integer  "status",      default: 0
-    t.time     "times"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "user_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
   end
+
+  add_index "courses", ["user_id"], name: "index_courses_on_user_id"
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id"

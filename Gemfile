@@ -19,6 +19,10 @@ gem "reform-rails"
 gem "public_activity"
 gem "sidekiq"
 gem "ransack"
+gem "sinatra", require: false
+gem "whenever", require: false
+gem "delayed_job_active_record"
+gem "daemons"
 
 group :development, :test do
   gem "byebug"

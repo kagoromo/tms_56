@@ -56,7 +56,7 @@ en:
     new_user_successful: "Add new a user successfull"
 
   courses:
-    all_courses: "All courses"
+    all_courses: "All Courses"
     subjects: "Subjects"
     description: "Description"
     edit: "Edit"
@@ -76,6 +76,13 @@ en:
     not_ready: "Course not ready"
     please_start: "Please start course first"
     find: "Find Course"
+    view_course: "View"
+    new_course: "New Course"
+    start_date: "Start date"
+    end_date: "End date"
+    go_back: "Go back to all courses"
+    choose_subject: "Choose subjects"
+    edit_course: "Edit course"
 
   course_subjects:
     start: "Start"
@@ -93,7 +100,7 @@ en:
     user: "user"
     in_course: "in course"
     please_add: "Please add a trainee"
-    add_trainees: "Add Trainees"
+    choose_trainee: "Choose Trainees"
     submit: "Submit"
     trainee_list_hint: "Hint: Trainee list can only be modified if the course hasn't been started"
     trainee_list_locked: "Trainee list locked"
@@ -149,11 +156,10 @@ en:
     submit: "Create subject"
     add_success: "Successfully add subject"
     add_fail: "Failed add subject"
-    add_subject: "Add Subject"
     please_add: "Please add a subject"
     edit_success: "Successfully edit subject"
     edit_fail: "Failed edit subject"
-    edit_subject: "Changes Subject"
+    edit_subject: "Edit Subject"
     submit: "Submit"
     form: "Subject Form"
     back: "Back to all subjects"
@@ -188,6 +194,8 @@ en:
     you: "You"
     my_activities: "My Activity"
     all_activities: "All Activity"
+    at: "at"
+    created: "Created"
 
   mail: 
     assign: "Assigned to a course %{content}"
@@ -197,6 +205,7 @@ en:
     delete_from_course: "You had been delete in course %{content}"
     thanks: "Thanks for joining and have a great day!"
     blank: "=============================="
+    will_finish: "Course %{content} is finishing in 2 days"
 
   search:
     courses:

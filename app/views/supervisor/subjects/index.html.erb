@@ -1,27 +1,25 @@
+<%= provide :title, t("subject.all_subjects") %>
 <div class="row">
-  <div class="col-md-5 panel panel-default">
-    <div class="text-center">
-      <h3><%= link_to t("subject.all_subjects"), "#" %></h3>
-      <hr />
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+      <h3><%= t "subject.all_subjects" %></h3>
     </div>
-    <div class="panel-body">
-      <ul class="list-unstyled">
-        <li class="col-md-8">
-          <%= render @subjects if @subjects.any? %>
-        </li>
-      </ul>
-      <div class="text-center">
-        <%= paginate @subjects %>
+      <div class="panel-body">
+        <div class="form-group">
+          <%= link_to t("subject.new_subject"),
+            new_supervisor_subject_path, class: "btn btn-primary col-md-4
+            col-md-offset-4" %>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <%= render @subjects %>
+            <div class="text-center">
+              <%= paginate @subjects %>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="col-md-6 col-md-offset-1 panel panel-default">
-    <div class="text-center">
-      <h3><%= link_to t("subject.form"), supervisor_subjects_path %></h3>
-      <hr/>
-    </div>
-    <div id="subject-form">
-      <%= render "form" %>
     </div>
   </div>
 </div>

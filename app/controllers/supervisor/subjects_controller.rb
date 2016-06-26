@@ -4,16 +4,17 @@ class Supervisor::SubjectsController < ApplicationController
 
   def index
     @subjects = @subjects.page(params[:page]).per Settings.subjects.per_page
-    subject = Subject.new
-    subject.tasks.build
-    @subject_form = SubjectForm.new subject
   end
 
   def show
   end
 
+  def new
+    @subject.tasks.build
+    @subject_form = SubjectForm.new @subject
+  end
+
   def create
-    @subject = Subject.new
     params[:subject][:tasks_attributes].each do |_, value|
       @subject.tasks.build
     end
@@ -23,9 +24,10 @@ class Supervisor::SubjectsController < ApplicationController
       flash[:success] = t "subject.add_success"
       redirect_to supervisor_subjects_path
     else
-      @subjects = Subject.all.page(params[:page]).per Settings.subjects.per_page
+      @subject.tasks.build
+      @subject_form = SubjectForm.new @subject
       flash.now[:danger] = t "subject.add_fail"
-      render :index
+      render :new
     end
   end
 

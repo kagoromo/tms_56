@@ -23,6 +23,8 @@
         <% else %>
           <%= t "courses.not_ready" %>
         <% end %>
+        <hr><%= link_to t("courses.go_back"),
+          supervisor_courses_path, class: "btn btn-default" %>
       </ul>
     </div>
     
@@ -32,6 +34,12 @@
           <% if @course.ready? %>
             <strong><%= t "courses.please_start" %></strong><hr>
           <% end %>
+          <div>
+            <%= link_to supervisor_courses_path,
+              class: "btn btn-primary" do %>
+              <span><%= t "courses.choose_subject" %></span>
+            <% end %>
+          </div>
           <table class="table">
             <thead>
               <tr>
@@ -72,11 +80,11 @@
           </table>
         <% else %>
           <ul class="list-unstyled">
-            <%= t "subject.please_add" %><hr>
+            <strong><%= t "subject.please_add" %><hr></strong>
             <div>
-              <%= link_to supervisor_courses_path,
+              <%= link_to (edit_supervisor_course_path @course),
                 class: "btn btn-primary" do %>
-                <span><%= t "subject.add_subject" %></span>
+                <span><%= t "courses.choose_subject" %></span>
               <% end %>
             </div>
           </ul>
@@ -116,7 +124,7 @@
             <div><%= t "user_courses.trainee_list_hint" %></div><br>
             <%= link_to edit_supervisor_course_add_user_courses_path(@course),
               class: "btn btn-primary" do %>
-              <span><%= t "user_courses.add_trainees" %></span>
+              <span><%= t "user_courses.choose_trainee" %></span>
             <% end %>
           <% else %>
             <%= t "user_courses.trainee_list_locked" %>

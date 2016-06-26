@@ -25,11 +25,11 @@ class UserCourse < ActiveRecord::Base
 
   private
   def send_mail_assign
-    UserMailer.assign_to_course(user, course).deliver_later
+    TraineeWorker.perform_async TraineeWorker::ASSIGN_TRAINEE, self.user_id, self.course_id
   end
 
   def send_mail_delete
-    UserMailer.delete_from_course(user, course).deliver_later
+    TraineeWorker.perform_async TraineeWorker::DELETE_TRAINEE, self.user_id, self.course_id
   end
 
   def create_trainee_subject

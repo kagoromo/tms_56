@@ -21,4 +21,8 @@ module ApplicationHelper
     link_to name, "#", class: "add_fields",
       data: {id: id, fields: fields.gsub("\n", "")}
   end
+  
+  def load_user_course course
+    course.user_courses.find_by user: current_user
+  end
 end

@@ -9,6 +9,7 @@ class TraineeSubjectsController < ApplicationController
         @trainee_subject.user.id, task_id: task.id
     end
     @activities = PublicActivity::Activity.task(@subject.tasks)
+      .where(key: t("activity.finished"))
       .page(params[:page]).per Settings.activity.per_page
   end
 

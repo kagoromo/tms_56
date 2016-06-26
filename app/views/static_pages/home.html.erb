@@ -3,7 +3,7 @@
   <% if user_signed_in? %>
     <div class="col-md-6">  
       <section class="user_info">
-        <%= render "shared/user_info" %>
+        <%= render "shared/user_info", user: current_user %>
       </section>
       <section class="stats">
         <%= render "shared/stats" %>
@@ -11,14 +11,23 @@
     </div>
     <div class="col-md-6">
       <div class="panel panel-default">
-        <h3><%= t "activity.my_activities" %></h3><br/>
-        <ul class="list-unstyled">
-          <% if @activities.any? %>
-            <%= render @activities %>
-            <%= paginate @activities %>
-          <% end %>
-          <hr/>
-        </ul>
+        <div class="panel-heading text-center">
+          <h3><%= t "activity.my_activities" %></h3>
+        </div>
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            <% if @activities.any? %>
+              <%= render @activities %>
+            <% end %>
+            <hr/>
+          </ul>
+          <div class="text-center">
+            <div>
+              <%= paginate @activities,
+                window: Settings.activity.pagination.window %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   <% else %>

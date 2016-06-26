@@ -1,14 +1,26 @@
 <% provide :title, t(:all_trainee) %>
 <div class="row">
-  <h1><%= t :all_trainee %></h1>
-  <div class="center">
-    <%= link_to new_supervisor_user_path, class: "btn btn-info" do %>
-      <span><%= t :new_user %></span>
-    <% end %>
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        <h3><%= t :all_trainee %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <%= link_to new_supervisor_user_path, class: "btn btn-primary  col-md-4
+            col-md-offset-4" do %>
+            <span><%= t :new_trainee %></span>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <%= render @users %>
+          <div class="text-center">
+            <%= paginate @users %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <%= paginate @users %>
-  <ul class="user list-unstyled">
-    <%= render @users %>
-  </ul>
-  <%= paginate @users %>
 </div>

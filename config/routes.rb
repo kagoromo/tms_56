@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  require "sidekiq/web"
   devise_for :users, controllers: {
     registrations: "users/registrations"
   }
@@ -12,14 +13,17 @@ Rails.application.routes.draw do
 
   namespace :supervisor do
     root "static_pages#home"
-    resources :courses, except: [:new]
+    authenticate :user, ->u{u.supervisor?} do
+      mount Sidekiq::Web => "/sidekiq"
+    end
+    resources :courses
     resources :courses, only: :show do
       resource :add_user_courses, only: [:edit, :update]
     end
     resources :course_subjects, only: [:edit, :update]
     resources :user_courses, only: :destroy
     resources :users
-    resources :subjects, except:[:new]
+    resources :subjects
   end
   
   resources :user_courses, only: [:index, :show]

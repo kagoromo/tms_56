@@ -4,7 +4,9 @@ class CreateCourses < ActiveRecord::Migration
       t.string :content
       t.string :description
       t.integer :status, default: 0
-      t.time :times
+      t.datetime :start_date
+      t.datetime :end_date
+      t.references :user, index: true, foreign_key: true
 
       t.timestamps null: false
     end

@@ -1,17 +1,26 @@
-<%= form_for [:supervisor, @subject_form] do |f| %>
-  <%= render "shared/error_messages", object: @subject_form %>
-  
-  <%= f.label :content, t("subject.content") %>
-  <%= f.text_field :content, class: "form-control" %>
-  
-  <%= f.label :description, t("subject.description") %>
-  <%= f.text_area :description, class: "form-control" %>
-  
-  <%= f.fields_for :tasks do |task| %>
-    <%= render "task_fields", f: task %>
-  <% end %>
-  <%= link_to_add_fields t("task.add_more_task"), f, :tasks %>
-  <br/>
-  <%= f.submit t("subject.submit"),
-    class: "btn btn-primary col-md-4 col-md-offset-4" %>
-<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+      <%= f.label :content, t("subject.content") %>
+      <%= f.text_field :content, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description, t("subject.description") %>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+    <%= f.fields_for :tasks do |task| %>
+      <%= render "task_fields", f: task %>
+    <% end %>
+    <%= link_to_add_fields t("task.add_more_task"), f, :tasks %>
+    <br/>
+  </div>
+  <div class="form-group">
+    <%= f.submit t("subject.submit"),
+      class: "btn btn-primary col-md-4 col-md-offset-4" %>
+  </div>
+</div>
+<br>
+<div class="form-group">
+  <%= link_to t("subject.go_back"),
+    supervisor_subjects_path, class: "btn btn-default col-md-4 col-md-offset-4" %>
+</div>

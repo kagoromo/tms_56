@@ -44,6 +44,28 @@
       <% end %>
     </div>
   </div>
+  
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        <h3><%= t "activity.my_activities" %></h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-unstyled">
+          <% if @activities.any? %>
+            <%= render @activities %>
+          <% end %>
+          <hr/>
+        </ul>
+        <div class="text-center">
+          <div>
+            <%= paginate @activities,
+              window: Settings.activity.pagination.window %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<%= render @activities %>
-<%= paginate @activities %>
+
+
