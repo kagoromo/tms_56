@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+  <div class="panel-heading text-center">
+    <h3><%= t "search.courses.search_course" %></h3>
+  </div>
+  <div class="panel-body">
+    <%= search_form_for @search, url: user_courses_path do |f| %>
+      <div class="large-5 small-4">
+        <%= f.label :content_cont, t("search.courses.content") %>
+        <%= f.text_field :content_cont, class: "form-control",
+          placeholder: t("search.courses.content") %>
+      </div>
+      <div class="large-5 small-4 columns">
+        <%= f.label :created_at_gteq, t("search.courses.from_day") %>
+        <%= f.date_field :created_at_gteq, class: "form-control" %>
+        <%= f.label :created_at_lteq, t("search.courses.to_day") %>
+        <%= f.date_field :created_at_lteq, class: "form-control" %>
+      </div>
+      <div class="large-5 small-4">
+        <%= f.label :subjects_content_cont, t("search.courses.subject_content") %>
+        <%= f.text_field :subjects_content_cont, class: "form-control" %>
+      </div>
+      <hr>
+      <div class="text-center">
+        <%= f.submit t("search.courses.search_course"), class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

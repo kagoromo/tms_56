@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default text-center">
+      <div class="panel-heading">
+        <h3><%= @subject.content %></h3>
+      </div>
+      <ul class="list-unstyled">
+        <h4><%= t "description" %></h4><br>
+        <%= @subject.description %><hr>
+        <div class="text-center">
+          <%= link_to t("subject.go_back"), supervisor_subjects_path,
+            class: "btn btn-default" %>
+        </div>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default text-center">
+      <ul class="list-unstyled">
+        <div class="panel panel-default">
+          <div class="panel-heading"><h3><%= t "task.task" %></h3></div>
+          <div class="panel-body" >
+            <div class="col-md-6">
+              <strong><h4><p><%= t "task.content" %></p></h4></strong>
+            </div>
+            <strong><h4><p><%= t "task.description" %></p></h4></strong>
+          </div>
+          <hr/>
+          <% if @subject.tasks.any? %>
+            <% @subject.tasks.each do |task| %>
+              <div class="col-md-6">
+                <p><%= task.content %></p>
+              </div>
+              <p><%= task.description %></p>
+            <% end %>
+          <% end %>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>

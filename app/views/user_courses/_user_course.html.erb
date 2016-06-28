@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-1">
+    <h3>
+      <%= link_to user_course.course.content, user_course_path(user_course) %>
+    </h3>
+    <p><%= user_course.course.description %></p>
+    <span class="glyphicon glyphicon-user">
+      <%= user_course.course.users.count %>
+      <%= t :trainees %>
+    </span>
+    <%= render "shared/status_label", label: user_course.status %>
+  </div>
+  <div class="col-md-2">
+    <br>
+    <%= link_to t("user_courses.view_course"), user_course_path(user_course),
+      class: "btn btn-primary" %>
+  </div>
+</div>
+<hr>

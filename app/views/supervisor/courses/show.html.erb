@@ -1,0 +1,136 @@
+<% provide :title, @course.content %>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default text-center">
+      <h3><%= @course.content %></h3><hr>
+      <ul class="list-unstyled">
+        <%= @course.description %><hr>
+        <% if @course.subjects.any? && @course.users.any? %>
+          <% if @course.ready? %>
+            <%= form_for [:supervisor, @course] do |f| %>
+              <%= f.hidden_field :status, value: :started %>
+              <%= f.submit t("courses.start"), class: "btn btn-primary" %>
+            <% end %>
+          <% elsif @course.started? %>
+            <strong><%= t "courses.started" %></strong><hr>
+            <%= form_for [:supervisor, @course] do |f| %>
+              <%= f.hidden_field :status, value: :finished %>
+              <%= f.submit t("courses.finish"), class: "btn btn-primary" %>
+            <% end %>
+          <% elsif @course.finished? %>
+            <strong><%= t "courses.finished" %></strong>
+          <% end %>
+        <% else %>
+          <%= t "courses.not_ready" %>
+        <% end %>
+        <hr><%= link_to t("courses.go_back"),
+          supervisor_courses_path, class: "btn btn-default" %>
+      </ul>
+    </div>
+    
+    <div class="panel panel-default text-center">
+      <h3><%= t "courses.subjects" %></h3><hr>
+        <% if @course.course_subjects.any? %>
+          <% if @course.ready? %>
+            <strong><%= t "courses.please_start" %></strong><hr>
+          <% end %>
+          <div>
+            <%= link_to supervisor_courses_path,
+              class: "btn btn-primary" do %>
+              <span><%= t "courses.choose_subject" %></span>
+            <% end %>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col-md-7 text-center"><%= t "course_subjects.content" %></th>
+                <th class="col-md-2 text-center"><%= t "course_subjects.status" %></th>
+                <th class="col-md-3 text-center"><%= t "course_subjects.action" %></th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <% @course.course_subjects.each do |course_subject| %>
+                <tr>
+                  <td>
+                    <%= course_subject.subject_content %>
+                  </td>
+                  <td>
+                    <%= course_subject.status.capitalize %>
+                  </td>
+                  <td>
+                    <%= form_for [:supervisor, course_subject], method: :patch do |f| %>
+                      <% if @course.started? %>
+                        <% if course_subject.ready? %>
+                          <%= f.hidden_field :status, value: :started %>
+                          <%= f.submit t("course_subjects.start"), class:
+                            "btn btn-primary" %>
+                        <% elsif course_subject.started? %>
+                          <%= f.hidden_field :status, value: :finished %>
+                          <%= f.submit t("course_subjects.finish"), class:
+                            "btn btn-primary" %>
+                        <% end %>
+                      <% elsif !@course.started? || course_subject.finished? %>
+                        <%= t "course_subjects.not_available"%>
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <ul class="list-unstyled">
+            <strong><%= t "subject.please_add" %><hr></strong>
+            <div>
+              <%= link_to (edit_supervisor_course_path @course),
+                class: "btn btn-primary" do %>
+                <span><%= t "courses.choose_subject" %></span>
+              <% end %>
+            </div>
+          </ul>
+        <% end %>
+
+    </div>
+  </div>
+  
+  <div class="col-md-6">
+    <div class="panel panel-default text-center">
+      <h3><%= t :all_trainee %></h3><hr>
+      <ul class="list-unstyled">
+        <% if @course.user_courses.any? %>
+          <% @course.user_courses.each do |user_course| %>
+            <div class="input-group fields">
+              <div class="form-control">
+                <span><%= link_to user_course.user.name, user_path(user_course.user) %></span>
+              </div>
+              <span class="input-group-addon">
+                <% if @course.ready? %>
+                  <%= link_to [:supervisor, user_course], method: :delete,
+                    data: {confirm: t("warning.delete")} do %>
+                    <%= t :remove %>
+                  <% end %>
+                <% else %>
+                  <%= t :remove %>
+                <% end %>
+              </span>
+            </div>
+          <% end %>
+        <% else %>
+          <strong><%= t "user_courses.please_add" %></strong>
+        <% end %>
+        <hr>
+        <div class="center">
+          <% if @course.ready? %>
+            <div><%= t "user_courses.trainee_list_hint" %></div><br>
+            <%= link_to edit_supervisor_course_add_user_courses_path(@course),
+              class: "btn btn-primary" do %>
+              <span><%= t "user_courses.choose_trainee" %></span>
+            <% end %>
+          <% else %>
+            <%= t "user_courses.trainee_list_locked" %>
+          <% end %>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>

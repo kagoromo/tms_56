@@ -1,0 +1,55 @@
+<% provide :title, @course.content %>
+<div class="row">
+  <div class="text-center">
+    <h1><%= link_to @course.content, supervisor_course_path(@course) %></h1>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="text-center">
+        <h3><%= t :all_trainee %></h3>
+        <ul class="list-unstyled">
+          <% @course.user_courses.each do |user_course| %>
+            <div class="input-group fields">
+              <div class="form-control">
+                <span><%= link_to user_course.user.name, "#" %></span>
+              </div>
+              <span class="input-group-addon">
+                <%= link_to [:supervisor, user_course], method: :delete,
+                  data: {confirm: t("warning.delete")} do %>
+                  <% t :remove %>
+                <% end %>
+              </span>
+            </div>
+          <% end %>
+        </ul>
+        <hr/>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <h3 class="text-center"><%= t "user_courses.add_trainees"%></h3>
+      <hr/>
+      <%= form_for @course,
+        url: supervisor_course_add_user_courses_path(@course) do |f| %>
+        <%= f.collection_check_boxes :user_ids, @users_not_in_course, :id, :name do |b| %>
+          <div class="col-md-offset-1 ">
+            <%= b.label do %>
+              <%= b.check_box + " " + b.text %>
+            <% end %>
+          </div>
+        <% end %>
+        <%= f.collection_check_boxes :user_ids, @users_in_course, :id, :name do |b| %>
+          <div class="col-md-offset-1 hidden">
+            <%= b.label do %>
+              <%= b.check_box + " " + b.text %>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="text-center">
+          <%= f.submit t("user_courses.submit"), class: "btn btn-primary" %>
+        </div>
+      <% end %>
+  </div>
+  </div>
+</div>

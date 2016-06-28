@@ -1,0 +1,6 @@
+<li class="users">
+  <%= gravatar_for user, size: Settings.image_user.full_size %>
+  <strong>
+    <h4><%= link_to user.name, user %></h4>
+  </strong>
+</li>

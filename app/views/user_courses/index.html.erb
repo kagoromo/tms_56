@@ -1,0 +1,31 @@
+<%= provide :title, t("user_courses.all_courses") %>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        <h3><%= t "user_courses.all_courses" %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <% if current_user.user_courses.empty? %>
+              <div class="text-center">You are not currently in any course.</div>
+            <% end %>
+            <% @courses.each do |course| %>
+              <%= render "user_course", user_course:
+                current_user.user_courses.load_course(course) %>
+            <% end %>
+            <div class="text-center">
+              <%= paginate @courses %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <%= render "search" %>
+  </div>
+</div>

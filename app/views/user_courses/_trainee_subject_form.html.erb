@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-md-6">
+    <h3><%= trainee_subject.subject.content %></h3>
+  </div>
+  <div class="col-md-3">
+    <%= t "subject.#{trainee_subject.status}" %>
+  </div>
+</div>
+<div class="row">
+  <% trainee_subject.trainee_tasks.each do |trainee_task| %>
+    <%= render "trainee_task_form", trainee_task: trainee_task %>
+  <% end %>
+</div>

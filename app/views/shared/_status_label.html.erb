@@ -1,0 +1,9 @@
+<% case label %>
+<% when "ready" %>
+  <span class="label label-default">
+<% when "started" %>
+  <span class="label label-primary">
+<% when "finished" %>
+  <span class="label label-success">
+<% end %>
+<%= t "trainee_subjects.status.#{label}" %></span>

@@ -1,0 +1,73 @@
+<% provide :title, @subject.content %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default text-center">
+      <div class="panel-heading">
+        <h3><%= @subject.content %></h3><hr>
+        <%= @subject.description %><hr>
+        <%= t "trainee_subjects.status_is" %>
+        <%= render "shared/status_label", label: @trainee_subject.status %>
+      </div>
+      <div class="progress">
+        <div class="progress-bar progress-bar-success progress-bar-striped"
+          style="width: <%= percent_tasks_completed @trainee_subject %>">
+          <%= percent_tasks_completed @trainee_subject %>
+        </div>
+      </div>
+      <%= form_for @trainee_subject, url: trainee_subject_path(@trainee_subject,
+        method: :patch) do |f| %>
+        <div class="panel-body">
+          <%= f.fields_for :trainee_tasks do |ff| %>
+            <div class="col-md-2">
+              <div class="panel panel-default text-center">
+                <h4><%= ff.label ff.object.task.content %></h4>
+                <%= ff.label ff.object.task.description if
+                  ff.object.task.description.present? %>
+                <% if ff.object.id.nil? %>
+                  <p><%= ff.check_box :task_id, {checked: false},
+                    ff.object.task.id %></p>
+                  <%= ff.hidden_field :finished, value: true %>
+                  <%= ff.hidden_field :user_id, value: @trainee_subject.user.id %>
+                <% else %>
+                  <p><%= t "trainee_subject.task_finished" %></p>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <%= render "submit_button", f: f, trainee_subject: @trainee_subject,
+          tasks: @tasks %>
+        <hr>
+        <div class="form-group">
+          <%= link_to t("trainee_subjects.go_back"),
+            user_course_path(@trainee_subject.user_course), class: "btn btn-default" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        <h3><%= (@bottom == Settings.activity.my_activities) ?
+          t("activity.all_activities") : t("activity.my_activities") %></h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-unstyled">
+          <%= render @activities if @activities.any? %>
+          <hr/>
+        </ul>
+        <div class="text-center">
+          <div><%= paginate @activities,
+            window: Settings.activity.pagination.window %></div>
+          <%= link_to trainee_subject_path @trainee_subject, action_type: @bottom do %>
+            <div class="btn btn-primary">
+              <%= (@bottom == Settings.activity.my_activities) ?
+                t("activity.my_activities") : t("activity.all_activities") %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

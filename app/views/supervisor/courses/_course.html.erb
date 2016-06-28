@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-1">
+    <h3>
+      <%= link_to course.content, supervisor_course_path(course) %>
+    </h3>
+    <p><%= course.description %></p>
+    <span class="glyphicon glyphicon-user">
+      <%= course.users.count %>
+      <%= t :trainees %>
+    </span>
+    <%= render "shared/status_label", label: course.status %>
+  </div>
+  <div class="col-md-2">
+    <div class="form-group">
+      <br><%= link_to t("courses.view_course"), supervisor_course_path(course),
+        class: "btn btn-primary col-md-12" %>
+    </div>
+    <div class="form-group">
+      <br><%= link_to t("courses.edit"), edit_supervisor_course_path(course),
+        class: "btn btn-success col-md-12" %>
+    </div>
+    <div class="form-group">
+      <br><%= link_to t("courses.delete"), supervisor_course_path(course),
+        method: :delete, data: {confirm: t("courses.confirm")},
+        class: "btn btn-danger col-md-12" %>
+    </div>
+  </div>
+</div>
+<hr>

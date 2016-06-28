@@ -1,0 +1,31 @@
+<%= provide :title, t("courses.all_courses") %>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        <h3><%= t "courses.all_courses" %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <%= link_to t("courses.new_course"),
+            new_supervisor_course_path, class: "btn btn-primary col-md-4 col-md-offset-4" %>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <%= render @courses %>
+            <div class="text-center">
+              <%= paginate @courses %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+      <%= render "search" %>
+    </div>
+  </div>
+</div>

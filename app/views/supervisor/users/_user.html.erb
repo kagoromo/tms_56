@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-1">
+    <%= gravatar_for user %>
+    <%= link_to user.name, user_path(user) %>
+  </div>
+  <div class="col-md-2">
+    <div class="form-group">
+      <%= link_to t(:edit_trainee), edit_supervisor_user_path(user),
+        class: "btn btn-success col-md-12" %>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="form-group">
+      <%= link_to supervisor_user_path(user), method: :delete,
+        data: {confirm: t("warning.delete")},
+        class: "btn btn-danger col-md-12" do %>
+        <span><%= t :delete %></span>
+      <% end %>
+    </div>
+  </div>
+</div>
+<hr>

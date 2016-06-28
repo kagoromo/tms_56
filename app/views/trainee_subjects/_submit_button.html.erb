@@ -1,0 +1,23 @@
+<% if trainee_subject.course_subject.ready? %>
+  <%= t "trainee_subjects.subject_not_started" %>
+<% elsif trainee_subject.course_subject.finished? %>
+  <%= t "trainee_subjects.subject_finished" %>
+<% else %>
+  <% if trainee_subject.finished? %>
+    <%= t "trainee_subjects.gratz" %>
+  <% else %>
+    <% if trainee_subject.user_course.course.started? %>
+      <% if tasks.any? %>
+        <div class="form-group">
+          <%= f.submit t("trainee_subjects.submit_tasks"), class: "btn btn-primary" %>
+        </div>
+      <% else %>
+        <%= t "trainee_subjects.no_tasks" %>
+      <% end %>
+    <% elsif trainee_subject.user_course.course.finished? %>
+      <%= t "trainee_subjects.course_finished" %>
+    <% else %>
+      <%= t "trainee_subjects.course_not_started" %>
+    <% end %>
+  <% end %>
+<% end %>
